@@ -14,3 +14,21 @@ jobs:
         run: npm install
       - name: Run tests
         run: npm test
+        
+- name: Get branch name
+  run: echo "Branch name: ${{ github.branch }}"
+
+- name: Get commit hash
+  run: echo "Commit hash: ${{ github.sha }}"
+- name: Check for errors
+  run: npm test
+
+- name: Report errors
+  if: ${{ failure() }}
+  run: echo "Tests failed!"
+  - name: Check all files
+  for: file in $(find . -type f)
+  do
+    echo "Checking file: $file"
+    run: eslint $file
+  done
