@@ -1,0 +1,16 @@
+name: Test Node.js application
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install Node.js
+        run: |
+          curl -sL <https://deb.nodesource.com/setup_16.x> | sudo -E bash -
+          sudo apt-get install -y nodejs
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm test
